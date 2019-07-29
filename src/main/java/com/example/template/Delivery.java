@@ -16,6 +16,7 @@ public class Delivery {
     @Id @GeneratedValue
     private Long deliveryId;
     private Long orderId;
+    private String customerName;
     private String deliveryAddress;
     private String deliveryState;
 
@@ -33,6 +34,14 @@ public class Delivery {
 
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getDeliveryAddress() {
