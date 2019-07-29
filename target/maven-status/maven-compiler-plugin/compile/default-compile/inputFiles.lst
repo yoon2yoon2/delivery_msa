@@ -1,9 +1,0 @@
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/config/kafka/KafkaSenderConfig.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/Application.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/DeliveryService.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/DeliveryStarted.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/OrderPlaced.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/DeliveryCompleted.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/Delivery.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/DeliveryRepository.java
-/Users/hyungkook/MSA project/event-storming/delivery/src/main/java/com/example/template/config/kafka/KafkaReceiverConfig.java
