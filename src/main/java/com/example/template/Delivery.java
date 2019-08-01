@@ -20,6 +20,8 @@ public class Delivery {
     private String deliveryAddress;
     private String deliveryState;
 
+
+
     public Long getDeliveryId() {
         return deliveryId;
     }

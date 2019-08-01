@@ -14,7 +14,7 @@ public class OrderPlaced implements Serializable {
     private String customerAddr;
 
     public OrderPlaced(){
-        this.setType(this.getClass().getSimpleName());
+
     }
 
     public String getType() {
