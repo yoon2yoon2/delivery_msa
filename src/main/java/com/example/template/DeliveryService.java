@@ -37,7 +37,7 @@ public class DeliveryService {
             /**
              * 주문이 들어옴 -> 배송 시작 이벤트 발송
              */
-            if( orderPlaced.getType().equals(OrderPlaced.class.getSimpleName())){
+            if( orderPlaced.getType() != null && orderPlaced.getType().equals(OrderPlaced.class.getSimpleName())){
 
                 Delivery delivery = new Delivery();
                 delivery.setOrderId(orderPlaced.getOrderId());
@@ -49,7 +49,7 @@ public class DeliveryService {
             /**
              * 배송이 시작됨 -> 배송 완료 이벤트 발송
              */
-            }else if( orderPlaced.getType().equals(DeliveryStarted.class.getSimpleName())){
+            }else if( orderPlaced.getType() != null && orderPlaced.getType().equals(DeliveryStarted.class.getSimpleName())){
 
                 DeliveryStarted deliveryStarted = objectMapper.readValue(message, DeliveryStarted.class);
 
