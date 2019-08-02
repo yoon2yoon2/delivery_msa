@@ -1,22 +1,22 @@
 package com.example.template;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class DeliveryCompleted {
+public class PaymentCompleted implements Serializable {
 
-    private String type ;
-    private String stateMessage = "배송이 완료됨";
+    private String type;
+    private String stateMessage = "주문이 들어옴";
 
-    private Long deliveryId;
     private Long orderCode;
     private String userId;
     private int paymentType;
     private Map<String,Integer> orderMap;
-    private String deliveryState;
 
-    public DeliveryCompleted(){
-        this.setType(this.getClass().getSimpleName());
+    public PaymentCompleted(){
+
     }
+
     public String getType() {
         return type;
     }
@@ -33,41 +33,35 @@ public class DeliveryCompleted {
         this.stateMessage = stateMessage;
     }
 
-    public Long getDeliveryId() {
-		return deliveryId;
-	}
-	public void setDeliveryId(Long deliveryId) {
-		this.deliveryId = deliveryId;
-	}
 	public Long getOrderCode() {
 		return orderCode;
 	}
+
 	public void setOrderCode(Long orderCode) {
 		this.orderCode = orderCode;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public int getPaymentType() {
 		return paymentType;
 	}
+
 	public void setPaymentType(int paymentType) {
 		this.paymentType = paymentType;
 	}
+
 	public Map<String, Integer> getOrderMap() {
 		return orderMap;
 	}
+
 	public void setOrderMap(Map<String, Integer> orderMap) {
 		this.orderMap = orderMap;
 	}
-	public String getDeliveryState() {
-        return deliveryState;
-    }
-
-    public void setDeliveryState(String deliveryState) {
-        this.deliveryState = deliveryState;
-    }
 }

@@ -28,28 +28,28 @@ public class DeliveryService {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        OrderPlaced orderPlaced = null;
+        PaymentCompleted paymentCompleted = null;
         try {
-            orderPlaced = objectMapper.readValue(message, OrderPlaced.class);
+            paymentCompleted = objectMapper.readValue(message, PaymentCompleted.class);
 
-            System.out.println(" #### type = " + orderPlaced.getType());
+            System.out.println(" #### type = " + paymentCompleted.getType());
 
             /**
              * 주문이 들어옴 -> 배송 시작 이벤트 발송
              */
-            if( orderPlaced.getType() != null && orderPlaced.getType().equals(OrderPlaced.class.getSimpleName())){
+            if( paymentCompleted.getType() != null && paymentCompleted.getType().equals(PaymentCompleted.class.getSimpleName())){
 
                 Delivery delivery = new Delivery();
-                delivery.setOrderId(orderPlaced.getOrderId());
-                delivery.setDeliveryAddress(orderPlaced.getCustomerAddr());
-                delivery.setCustomerName(orderPlaced.getCustomerName());
+                delivery.setOrderCode(paymentCompleted.getOrderCode());
+                delivery.setUserId(paymentCompleted.getUserId());
+                delivery.setPaymentType(paymentCompleted.getPaymentType());
                 delivery.setDeliveryState(DeliveryStarted.class.getSimpleName());
                 deliveryRepository.save(delivery);
 
             /**
              * 배송이 시작됨 -> 배송 완료 이벤트 발송
              */
-            }else if( orderPlaced.getType() != null && orderPlaced.getType().equals(DeliveryStarted.class.getSimpleName())){
+            }else if( paymentCompleted.getType() != null && paymentCompleted.getType().equals(DeliveryStarted.class.getSimpleName())){
 
                 DeliveryStarted deliveryStarted = objectMapper.readValue(message, DeliveryStarted.class);
 
@@ -62,10 +62,9 @@ public class DeliveryService {
 
                 try {
                     DeliveryCompleted deliveryCompleted = new DeliveryCompleted();
-                    deliveryCompleted.setOrderId(deliveryStarted.getOrderId());
-                    deliveryCompleted.setDeliveryId(deliveryStarted.getDeliveryId());
-                    deliveryCompleted.setCustomerName(deliveryStarted.getCustomerName());
-                    deliveryCompleted.setDeliveryAddress(deliveryStarted.getDeliveryAddress());
+                    deliveryCompleted.setOrderCode(deliveryStarted.getOrderCode());
+                    deliveryCompleted.setUserId(deliveryStarted.getUserId());
+                    deliveryCompleted.setPaymentType(deliveryStarted.getPaymentType());
                     deliveryCompleted.setDeliveryState(DeliveryCompleted.class.getSimpleName());
 
                     json = objectMapper.writeValueAsString(deliveryCompleted);

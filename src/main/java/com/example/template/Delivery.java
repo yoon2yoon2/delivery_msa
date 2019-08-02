@@ -9,52 +9,63 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Map;
 
 @Entity
 public class Delivery {
 
     @Id @GeneratedValue
     private Long deliveryId;
-    private Long orderId;
-    private String customerName;
-    private String deliveryAddress;
+    private Long orderCode;
+    private String userId;
+    private int paymentType;
+    //private Map<String,Integer> orderMap;
     private String deliveryState;
+    private String addr;//hard coding rest pool API;
 
-
-
+    
+    
     public Long getDeliveryId() {
-        return deliveryId;
-    }
+		return deliveryId;
+	}
 
-    public void setDeliveryId(Long deliveryId) {
-        this.deliveryId = deliveryId;
-    }
+	public void setDeliveryId(Long deliveryId) {
+		this.deliveryId = deliveryId;
+	}
 
-    public Long getOrderId() {
-        return orderId;
-    }
+	public Long getOrderCode() {
+		return orderCode;
+	}
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
+	public void setOrderCode(Long orderCode) {
+		this.orderCode = orderCode;
+	}
 
-    public String getCustomerName() {
-        return customerName;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
+	public int getPaymentType() {
+		return paymentType;
+	}
 
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
+	public void setPaymentType(int paymentType) {
+		this.paymentType = paymentType;
+	}
 
-    public String getDeliveryState() {
+//	public Map<String, Integer> getOrderMap() {
+//		return orderMap;
+//	}
+//
+//	public void setOrderMap(Map<String, Integer> orderMap) {
+//		this.orderMap = orderMap;
+//	}
+
+	public String getDeliveryState() {
         return deliveryState;
     }
 
@@ -71,7 +82,7 @@ public class Delivery {
 
         if( deliveryState.equals(DeliveryStarted.class.getSimpleName())){
             DeliveryStarted deliveryStarted = new DeliveryStarted();
-            deliveryStarted.setOrderId(this.getOrderId());
+            deliveryStarted.setOrderCode(this.getOrderCode());
             try {
                 BeanUtils.copyProperties(this, deliveryStarted);
                 json = objectMapper.writeValueAsString(deliveryStarted);

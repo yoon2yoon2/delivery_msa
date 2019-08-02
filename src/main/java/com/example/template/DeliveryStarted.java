@@ -1,17 +1,26 @@
 package com.example.template;
 
+import java.util.Map;
+
 public class DeliveryStarted {
 
     private String type ;
     private String stateMessage = "배송이 시작됨";
 
     private Long deliveryId;
-    private Long orderId;
-    private String customerName;
-    private String deliveryAddress;
+    private Long orderCode;
+    private String userId;
+    private int paymentType;
+ //   private Map<String,Integer> orderMap;
     private String deliveryState;
-
-    public DeliveryStarted(){
+    
+    public Long getDeliveryId() {
+		return deliveryId;
+	}
+	public void setDeliveryId(Long deliveryId) {
+		this.deliveryId = deliveryId;
+	}
+	public DeliveryStarted(){
         this.setType(this.getClass().getSimpleName());
     }
     public String getType() {
@@ -26,43 +35,34 @@ public class DeliveryStarted {
         return stateMessage;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public void setStateMessage(String stateMessage) {
-        this.stateMessage = stateMessage;
-    }
-
-    public Long getDeliveryId() {
-        return deliveryId;
-    }
-
-    public void setDeliveryId(Long deliveryId) {
-        this.deliveryId = deliveryId;
-    }
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public String getDeliveryState() {
+    public Long getOrderCode() {
+		return orderCode;
+	}
+	public void setOrderCode(Long orderCode) {
+		this.orderCode = orderCode;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getPaymentType() {
+		return paymentType;
+	}
+	public void setPaymentType(int paymentType) {
+		this.paymentType = paymentType;
+	}
+//	public Map<String, Integer> getOrderMap() {
+//		return orderMap;
+//	}
+//	public void setOrderMap(Map<String, Integer> orderMap) {
+//		this.orderMap = orderMap;
+//	}
+	public void setStateMessage(String stateMessage) {
+		this.stateMessage = stateMessage;
+	}
+	public String getDeliveryState() {
         return deliveryState;
     }
 
