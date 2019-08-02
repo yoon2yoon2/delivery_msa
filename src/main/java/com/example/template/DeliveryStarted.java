@@ -10,8 +10,7 @@ public class DeliveryStarted {
     private Long deliveryId;
     private Long orderCode;
     private String userId;
-    private int paymentType;
- //   private Map<String,Integer> orderMap;
+
     private String deliveryState;
     
     public Long getDeliveryId() {
@@ -47,18 +46,7 @@ public class DeliveryStarted {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getPaymentType() {
-		return paymentType;
-	}
-	public void setPaymentType(int paymentType) {
-		this.paymentType = paymentType;
-	}
-//	public Map<String, Integer> getOrderMap() {
-//		return orderMap;
-//	}
-//	public void setOrderMap(Map<String, Integer> orderMap) {
-//		this.orderMap = orderMap;
-//	}
+
 	public void setStateMessage(String stateMessage) {
 		this.stateMessage = stateMessage;
 	}

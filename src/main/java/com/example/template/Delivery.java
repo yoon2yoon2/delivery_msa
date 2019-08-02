@@ -1,6 +1,5 @@
 package com.example.template;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -14,18 +13,19 @@ import java.util.Map;
 @Entity
 public class Delivery {
 
-    @Id @GeneratedValue
-    private Long deliveryId;
-    private Long orderCode;
-    private String userId;
-    private int paymentType;
-    //private Map<String,Integer> orderMap;
-    private String deliveryState;
-    private String addr;//hard coding rest pool API;
+	@Id
+	@GeneratedValue
+	private Long deliveryId;
+	private Long code;
+	private String userId;
+	private double total;// price*quantity 총가격
+	private String productCode;
+	private int quantity;
 
-    
-    
-    public Long getDeliveryId() {
+	private String deliveryState;
+	private String addr;// hard coding rest pool API;
+
+	public Long getDeliveryId() {
 		return deliveryId;
 	}
 
@@ -33,12 +33,12 @@ public class Delivery {
 		this.deliveryId = deliveryId;
 	}
 
-	public Long getOrderCode() {
-		return orderCode;
+	public Long getCode() {
+		return code;
 	}
 
-	public void setOrderCode(Long orderCode) {
-		this.orderCode = orderCode;
+	public void setCode(Long code) {
+		this.code = code;
 	}
 
 	public String getUserId() {
@@ -49,52 +49,68 @@ public class Delivery {
 		this.userId = userId;
 	}
 
-	public int getPaymentType() {
-		return paymentType;
+	public double getTotal() {
+		return total;
 	}
 
-	public void setPaymentType(int paymentType) {
-		this.paymentType = paymentType;
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
-//	public Map<String, Integer> getOrderMap() {
-//		return orderMap;
-//	}
-//
-//	public void setOrderMap(Map<String, Integer> orderMap) {
-//		this.orderMap = orderMap;
-//	}
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 	public String getDeliveryState() {
-        return deliveryState;
-    }
+		return deliveryState;
+	}
 
-    public void setDeliveryState(String deliveryState) {
-        this.deliveryState = deliveryState;
-    }
+	public void setDeliveryState(String deliveryState) {
+		this.deliveryState = deliveryState;
+	}
 
-    @PostPersist
-    private void publishDeliveryStart() {
-        KafkaTemplate kafkaTemplate = Application.applicationContext.getBean(KafkaTemplate.class);
+	public String getAddr() {
+		return addr;
+	}
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = null;
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
 
-        if( deliveryState.equals(DeliveryStarted.class.getSimpleName())){
-            DeliveryStarted deliveryStarted = new DeliveryStarted();
-            deliveryStarted.setOrderCode(this.getOrderCode());
-            try {
-                BeanUtils.copyProperties(this, deliveryStarted);
-                json = objectMapper.writeValueAsString(deliveryStarted);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException("JSON format exception", e);
-            }
-        }
+	@PostPersist
+	private void publishDeliveryStart() {
+		KafkaTemplate kafkaTemplate = Application.applicationContext.getBean(KafkaTemplate.class);
 
-        if( json != null ){
-            ProducerRecord producerRecord = new ProducerRecord<>("eventTopic", json);
-            kafkaTemplate.send(producerRecord);
-        }
-    }
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = null;
+
+		DeliveryStarted deliveryStarted = new DeliveryStarted();
+		deliveryStarted.setOrderCode(this.getCode());
+		
+		try {
+			BeanUtils.copyProperties(this, deliveryStarted);
+			json = objectMapper.writeValueAsString(deliveryStarted);
+		} 
+		catch (JsonProcessingException e) {
+			throw new RuntimeException("JSON format exception", e);
+		}
+
+		if (json != null) {
+			ProducerRecord producerRecord = new ProducerRecord<>("eventTopic", json);
+			kafkaTemplate.send(producerRecord);
+		}
+	}
 
 }

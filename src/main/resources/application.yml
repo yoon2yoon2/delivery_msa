@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 
 eventTopic: eventTopic
@@ -25,11 +25,12 @@ logging:
         type: trace        
 
 server:
-  port: 8082
+  port: 8083
 ---
 spring:
   profiles: docker
   kafka:
-    bootstrap-servers: my-kafka.kafka.svc.cluster.local:9092
+    bootstrap-servers: http://34.85.73.178:31090
+    #my-kafka.kafka.svc.cluster.local:9092
     consumer:
       enable-auto-commit: true

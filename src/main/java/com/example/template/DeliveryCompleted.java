@@ -10,10 +10,11 @@ public class DeliveryCompleted {
     private Long deliveryId;
     private Long orderCode;
     private String userId;
-    private int paymentType;
-    private Map<String,Integer> orderMap;
     private String deliveryState;
 
+    
+    
+    
     public DeliveryCompleted(){
         this.setType(this.getClass().getSimpleName());
     }
@@ -51,18 +52,8 @@ public class DeliveryCompleted {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getPaymentType() {
-		return paymentType;
-	}
-	public void setPaymentType(int paymentType) {
-		this.paymentType = paymentType;
-	}
-	public Map<String, Integer> getOrderMap() {
-		return orderMap;
-	}
-	public void setOrderMap(Map<String, Integer> orderMap) {
-		this.orderMap = orderMap;
-	}
+
+
 	public String getDeliveryState() {
         return deliveryState;
     }
